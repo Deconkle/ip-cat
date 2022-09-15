@@ -47,12 +47,7 @@ def write_image(ip):
     draw.text((15,65), ip, font=font, fill=(0,0,0))
     draw.text((15,120), "and rmembr u live in: "+data['city'], font=font, fill=(0,0,0))
     draw.text((15,175), "u can contact ur isp here: "+data['org'], font=font, fill=(0,0,0))
-    draw.text((5,225), "PB.com: WYMHuiKC", font=font2, fill=(0,0,0))
     return img
- 
-@app.route("/confirmation/confirm/")
-def send_conf():
-    return "Confirmed! "+str(time())
  
 @app.errorhandler(Exception)
 def handle_error(e):
