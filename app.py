@@ -9,12 +9,14 @@ from json import loads # load json from ip geolocate api
 from io import BytesIO
 app = Flask(__name__)
 
-ip_info = {} # if you spam the ip info api I use they'll get mad and want me to pay. here we
+ip_info = {} # here we cache IP's so our api doesn't get mad at us
 ipinfo_key = os.environ['IP_KEY'] # take our api key from env
 ip_query_url = "https://ipinfo.io/{}/json" # url for our ip geolocate api
- 
-def access_control(req):
-    if not req.host_url.startswith("http://relay.decline.gg") and not req.host_url.startswith("http://e2.decline.gg"):
+
+URL_TO_MY_WEBSERVER = "http://example.gg" # <-- CHANGE this to your url if you want any hope of this thing working 
+
+def access_control(req): # this will get rid of nearly all bots requesting your home ip address - good since we return 200 on every url lol
+    if not req.host_url.startswith(URL_TO_MY_WEBSERVER)
         #print("host_url = host ip")
         print("Client didn't pass access control, serving forbidden.")
         return False
