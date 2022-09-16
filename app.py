@@ -2,8 +2,8 @@ from flask import request, Flask, send_file # webserver stuff
 from PIL import Image, ImageDraw, ImageFont # draw on images
 from random import choices # choose random file names
 import string # import letters for filenames
-import os # delete images using os.system, and read env vars using os.environ
-from time import time,sleep # time conf
+from os import environ # read env vars for our api key
+from time import sleep # sleep incase we're getting rate limited
 import requests # ip geolocate api
 from json import loads # load json from ip geolocate api
 from io import BytesIO
@@ -31,12 +31,12 @@ def get_ipinfo(ip):
             response = loads(r.text)
             ip_info[ip] = response
             return response # return json obj of ip information returned from api
-        else: # if not ok: shit
+        else: # if not ok: uhh shit
             print("Ip info request returned: "+str(r.status_code)) # what happened?
             print(r.content)
             print(r.request.url)
             sleep(2)
-            get_ipinfo(ip) # try again after 2 seconds.
+            get_ipinfo(ip) # surely it's okay 2 seconds later 👀
 
  
 def write_image(ip):
